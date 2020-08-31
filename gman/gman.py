@@ -3,8 +3,7 @@ import os
 from github import Github
 from config import local_config
 
-from PyInquirer import style_from_dict, Token, prompt, Separator
-from examples import custom_style_2
+from utilities import Cli
 
 # BASIC FUNCTIONALITIES TO IMPLEMENT
 # TODO - Gman lass
@@ -49,27 +48,6 @@ class Gman:
         for repo in self.repo_list:
             print(repo)
 
-
-def display_menu():
-    question = [
-        {
-            "type": "list",
-            "name": "main_menu",
-            "message": "What would you like to do",
-            "choices": [
-                {
-                    "name":"List repos",
-                    "value": "list"
-                },
-                "Update repos",
-                "List Organization"
-            ]
-        }
-    ]
-    answers = prompt(question, style=custom_style_2)
-    print(answers)
-
-
 if __name__ == '__main__':
     '''
     temp_file = open('./temp_stash.txt', 'r')
@@ -89,4 +67,6 @@ if __name__ == '__main__':
     '''
     gman = Gman(local_config, use_stash=True, stash_path='./temp_stash.txt')
     #gman.display_repo_list()
-    display_menu()
+    cli = Cli(program_name='gman')
+    selected_option = cli.display_menu()
+    print(selected_option)
